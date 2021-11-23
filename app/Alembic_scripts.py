@@ -1,0 +1,216 @@
+'''
+
+alembic revision -m 'a message' --rev-id=1
+
+
+'''
+
+
+####################################################################################
+########################################################
+
+"""
+create posts table
+
+Revision ID: 1
+Revises: 
+Create Date: 2021-11-22 14:00:30.233313
+"""
+from alembic import op
+import sqlalchemy as sa
+
+# revision identifiers, used by Alembic.
+revision = '1_ec9299c66024'
+down_revision = None
+branch_labels = None
+depends_on = None
+
+def upgrade():
+    op.create_table(
+        'alembic_posts', 
+        sa.Column('id'   , sa.Integer(), nullable=False, primary_key=True),
+        sa.Column('title', sa.String() , nullable=False)
+        ) 
+
+def downgrade():
+    op.drop_table('alembic_posts')
+
+
+
+####################################################################################
+########################################################
+"""
+add 'content' column to alembic_posts table
+
+Revision ID: 2_62b52c86a6bf
+Revises: 1_ec9299c66024
+Create Date: 2021-11-22 14:10:38.530169
+"""
+from alembic import op
+import sqlalchemy as sa
+
+# revision identifiers, used by Alembic.
+revision = '2_62b52c86a6bf'
+down_revision = '1_ec9299c66024'
+branch_labels = None
+depends_on = None
+
+def upgrade():
+    op.add_column('alembic_posts', sa.Column('content', sa.String(), nullable=False))
+
+def downgrade():
+    op.drop_column('alembic_posts', 'content')
+
+####################################################################################
+########################################################
+"""
+create alembic_user table
+
+Revision ID: 3_861b79241b51
+Revises: 2_62b52c86a6bf
+Create Date: 2021-11-22 14:16:22.782222
+"""
+from alembic import op
+import sqlalchemy as sa
+from sqlalchemy.sql.expression import text
+
+# revision identifiers, used by Alembic.
+revision = '3_861b79241b51'
+down_revision = '2_62b52c86a6bf'
+branch_labels = None
+depends_on = None
+
+def upgrade():
+    op.create_table(
+        'alembic_users', 
+        sa.Column('id'   , sa.Integer(), nullable=False                 ),
+        sa.Column('name' , sa.String(), nullable=False                  ),
+        sa.Column('email', sa.String(), nullable=False                  ),
+        sa.Column('password', sa.String(), nullable=False               ),
+        sa.Column('created_at', sa.TIMESTAMP(timezone=True), server_default=sa.text('now()'), nullable=False),
+
+        sa.PrimaryKeyConstraint('id'),
+        sa.UniqueConstraint('email')
+        )
+
+def downgrade():
+    op.drop_table('alembic_users')
+####################################################################################
+########################################################
+"""
+add Foreign Key to alembic_posts table
+
+Revision ID: 4_f6fab6389dd9
+Revises: 3_861b79241b51
+Create Date: 2021-11-22 14:25:23.118680
+"""
+from alembic import op
+import sqlalchemy as sa
+
+# revision identifiers, used by Alembic.
+revision = '4_f6fab6389dd9'
+down_revision = '3_861b79241b51'
+branch_labels = None
+depends_on = None
+
+def upgrade():
+    op.add_column('alembic_posts', sa.Column('owner_id', sa.Integer(), nullable=False))
+    op.create_foreign_key(
+        'alembic_posts_FK', source_table='alembic_posts', referent_table='alembic_users', 
+        local_cols=['owner_id'], remote_cols=['id'], ondelete="CASCADE")
+
+def downgrade():
+    op.drop_constraint('alembic_posts_FK', table_name='alembic_posts')
+    op.drop_column('alembic_posts', 'owner_id')
+####################################################################################
+########################################################
+"""
+add remaining colmns to alembic_posts table 
+
+Revision ID: 5_1ce261b6a596
+Revises: 4_f6fab6389dd9
+Create Date: 2021-11-22 14:45:13.219593
+"""
+from alembic import op
+import sqlalchemy as sa
+
+# revision identifiers, used by Alembic.
+revision = '5_1ce261b6a596'
+down_revision = '4_f6fab6389dd9'
+branch_labels = None
+depends_on = None
+
+def upgrade():
+    op.add_column('alembic_posts', sa.Column('published' ,sa.Boolean()               , nullable=False, server_default='TRUE'), )
+    op.add_column('alembic_posts', sa.Column('created_at',sa.TIMESTAMP(timezone=True), nullable=False, server_default=sa.text('now()'), ))
+
+def downgrade():
+    op.drop_column('alembic_posts', 'published')
+    op.drop_column('alembic_posts', 'created_at')
+####################################################################################
+########################################################
+"""auto-create alembic_votes table
+
+Revision ID: 6_2ef6e48d5930
+Revises: 5_1ce261b6a596
+Create Date: 2021-11-22 14:55:19.969033
+"""
+from alembic import op
+import sqlalchemy as sa
+from sqlalchemy.dialects import postgresql
+
+# revision identifiers, used by Alembic.
+revision = '6_2ef6e48d5930'
+down_revision = '5_1ce261b6a596'
+branch_labels = None
+depends_on = None
+
+def upgrade():
+    # ### commands auto generated by Alembic - please adjust! ###
+    op.drop_table('alembic_users')
+    op.drop_table('posts')
+    op.drop_table('products')
+    op.drop_table('alembic_posts')
+    # ### end Alembic commands ###
+
+def downgrade():
+    # ### commands auto generated by Alembic - please adjust! ###
+    op.create_table('alembic_posts',
+    sa.Column('id', sa.INTEGER(), autoincrement=True, nullable=False),
+    sa.Column('title', sa.VARCHAR(), autoincrement=False, nullable=False),
+    sa.Column('content', sa.VARCHAR(), autoincrement=False, nullable=False),
+    sa.Column('owner_id', sa.INTEGER(), autoincrement=False, nullable=False),
+    sa.Column('published', sa.BOOLEAN(), server_default=sa.text('true'), autoincrement=False, nullable=False),
+    sa.Column('created_at', postgresql.TIMESTAMP(timezone=True), server_default=sa.text('now()'), autoincrement=False, nullable=False),
+    sa.ForeignKeyConstraint(['owner_id'], ['alembic_users.id'], name='alembic_posts_FK', ondelete='CASCADE'),
+    sa.PrimaryKeyConstraint('id', name='alembic_posts_pkey')
+    )
+    op.create_table('products',
+    sa.Column('name', sa.VARCHAR(), autoincrement=False, nullable=False),
+    sa.Column('price', sa.INTEGER(), autoincrement=False, nullable=False),
+    sa.Column('id', sa.INTEGER(), autoincrement=True, nullable=False),
+    sa.Column('is_sale', sa.BOOLEAN(), server_default=sa.text('false'), autoincrement=False, nullable=True),
+    sa.Column('inventory', sa.INTEGER(), server_default=sa.text('0'), autoincrement=False, nullable=False),
+    sa.Column('created_at', postgresql.TIMESTAMP(timezone=True), server_default=sa.text('now()'), autoincrement=False, nullable=False),
+    sa.PrimaryKeyConstraint('id', name='products_pkey')
+    )
+    op.create_table('posts',
+    sa.Column('title', sa.VARCHAR(), autoincrement=False, nullable=False),
+    sa.Column('content', sa.VARCHAR(), autoincrement=False, nullable=False),
+    sa.Column('published', sa.BOOLEAN(), server_default=sa.text('true'), autoincrement=False, nullable=False),
+    sa.Column('id', sa.INTEGER(), autoincrement=True, nullable=False),
+    sa.Column('created_at', postgresql.TIMESTAMP(timezone=True), server_default=sa.text('now()'), autoincrement=False, nullable=False),
+    sa.PrimaryKeyConstraint('id', name='posts_pkey')
+    )
+    op.create_table('alembic_users',
+    sa.Column('id', sa.INTEGER(), autoincrement=True, nullable=False),
+    sa.Column('name', sa.VARCHAR(), autoincrement=False, nullable=False),
+    sa.Column('email', sa.VARCHAR(), autoincrement=False, nullable=False),
+    sa.Column('password', sa.VARCHAR(), autoincrement=False, nullable=False),
+    sa.Column('created_at', postgresql.TIMESTAMP(timezone=True), server_default=sa.text('now()'), autoincrement=False, nullable=False),
+    sa.PrimaryKeyConstraint('id', name='alembic_users_pkey'),
+    sa.UniqueConstraint('email', name='alembic_users_email_key')
+    )
+    # ### end Alembic commands ###
+####################################################################################
+########################################################
