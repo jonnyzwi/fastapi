@@ -3,7 +3,20 @@ import fastapi
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from .config import settings, uri#, DATABASE_URL
+from .config import settings #uri#, DATABASE_URL
+
+
+
+######################
+import os
+import re
+
+uri = os.getenv("DATABASE_URL")  # or other relevant config var
+if uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://", 1)
+# rest of connection code using the connection string `uri`
+######################
+
 
 
 # Dependency
@@ -26,7 +39,7 @@ SQLALCHEMY_DATABASE_URL = 'postgresql://ammbnnbiydgmxn:865288d3aa6f5daeb0c6defb4
 # SQLALCHEMY_DATABASE_URL = DATABASE_URL
 
 
-# SQLALCHEMY_DATABASE_URL = uri 
+SQLALCHEMY_DATABASE_URL = uri 
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
