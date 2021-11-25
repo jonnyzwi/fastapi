@@ -2,3 +2,5 @@
 __pycache__
 venv/
 .env
+Heroku_Credentials
+temp_env

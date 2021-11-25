@@ -10,6 +10,15 @@ from .masterImports import *
 from .routers import basicPosts, postgres, sqlalchemy, user, auth, logins, vote, current_user
 from .config import settings
 from fastapi.middleware.cors import CORSMiddleware 
+ 
+ 
+# ########################################################################
+# import os 
+# port = int(os.environ.get('PORT', 5432))  # add these lines in code
+# app.run(host=args.host, port=port, debug=True)  
+# ########################################################################
+
+
 
 
 models.Base.metadata.create_all(bind=engine)

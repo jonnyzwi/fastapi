@@ -1,0 +1,4 @@
+2021-11-23 23:18:05.101 EST [64397] FATAL:  data directory "/Library/PostgreSQL/14/data" has wrong ownership
+2021-11-23 23:18:05.101 EST [64397] HINT:  The server must be started by the user that owns the data directory.
+2021-11-23 23:19:15.025 EST [64491] FATAL:  data directory "/Library/PostgreSQL/14/data" has wrong ownership
+2021-11-23 23:19:15.025 EST [64491] HINT:  The server must be started by the user that owns the data directory.
