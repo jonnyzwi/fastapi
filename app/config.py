@@ -21,5 +21,5 @@ class Settings(BaseSettings):
 
 settings = Settings()
 
-import os
-DATABASE_URL = os.environ['DATABASE_URL']
+# import os
+# DATABASE_URL = os.environ['DATABASE_URL']
