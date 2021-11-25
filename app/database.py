@@ -42,8 +42,8 @@ HEROKU_URL = 'postgresql://ammbnnbiydgmxn:865288d3aa6f5daeb0c6defb4d94036f344bd4
 SQLALCHEMY_DATABASE_URL = f'postgresql://{settings.database_username}:{settings.database_password}@{settings.database_hostname}/{settings.database_name}'
 
 
-HEROKU_DATABASE_URL = 'postgres://ammbnnbiydgmxn:865288d3aa6f5daeb0c6defb4d94036f344bd41ce0bf8dee8b035dff79b70281@ec2-54-144-165-97.compute-1.amazonaws.com:5432/d74soohkq8rpbl'
-# HEROKU_DATABASE_URL = 'postgresql://ammbnnbiydgmxn:865288d3aa6f5daeb0c6defb4d94036f344bd41ce0bf8dee8b035dff79b70281@ec2-54-144-165-97.compute-1.amazonaws.com:5432/d74soohkq8rpbl?sslmode=require'
+# HEROKU_DATABASE_URL = 'postgres://ammbnnbiydgmxn:865288d3aa6f5daeb0c6defb4d94036f344bd41ce0bf8dee8b035dff79b70281@ec2-54-144-165-97.compute-1.amazonaws.com:5432/d74soohkq8rpbl'
+HEROKU_DATABASE_URL = 'postgresql://ammbnnbiydgmxn:865288d3aa6f5daeb0c6defb4d94036f344bd41ce0bf8dee8b035dff79b70281@ec2-54-144-165-97.compute-1.amazonaws.com:5432/d74soohkq8rpbl?sslmode=require'
 
 # HEROKU_DATABASE_URL='(heroku config:get DATABASE_URL -a fastapi-zwitrader)'
 # HEROKU_DATABASE_URL =  'postgres://ammbnnbiydgmxn:865288d3aa6f5daeb0c6defb4d94036f344bd41ce0bf8dee8b035dff79b70281@ec2-54-144-165-97.compute-1.amazonaws.com:5432/d74soohkq8rpbl?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory'
