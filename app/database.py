@@ -3,7 +3,7 @@ import fastapi
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from .config import settings#, DATABASE_URL
+from .config import settings, uri#, DATABASE_URL
 
 
 # Dependency
@@ -24,6 +24,9 @@ SQLALCHEMY_DATABASE_URL = 'postgres://ammbnnbiydgmxn:865288d3aa6f5daeb0c6defb4d9
 # SQLALCHEMY_DATABASE_URL = 'postgres://ammbnnbiydgmxn:865288d3aa6f5daeb0c6defb4d94036f344bd41ce0bf8dee8b035dff79b70281@ec2-54-144-165-97.compute-1.amazonaws.com:5432/d74soohkq8rpbl?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory'
 
 # SQLALCHEMY_DATABASE_URL = DATABASE_URL
+
+
+SQLALCHEMY_DATABASE_URL = uri 
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
