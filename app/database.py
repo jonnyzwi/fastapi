@@ -27,6 +27,14 @@ def get_db():
     finally:
         db.close()
 
+
+
+# app.config["SQLALCHEMY_DATABASE_URI"]= f'postgresql://{db_user}:{db_pswd}@{db_host}/{db_name}'
+# HEROKU_URL = f'postgresql://{db_user}:{db_pswd}@{db_host}/{db_name}'
+
+HEROKU_URL = 'postgresql://ammbnnbiydgmxn:865288d3aa6f5daeb0c6defb4d94036f344bd41ce0bf8dee8b035dff79b70281@ec2-54-144-165-97.compute-1.amazonaws.com:5432/d74soohkq8rpbl'
+
+
 # SQLALCHEMY_DATABASE_URL = 'postgresql://<username>:<password>@<ip-address/hostname>/database_name>'
 # SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:postgres@localhost/fastapi_DB'
 SQLALCHEMY_DATABASE_URL = f'postgresql://{settings.database_username}:{settings.database_password}@{settings.database_hostname}/{settings.database_name}'
@@ -37,9 +45,8 @@ SQLALCHEMY_DATABASE_URL = 'postgresql://ammbnnbiydgmxn:865288d3aa6f5daeb0c6defb4
 # SQLALCHEMY_DATABASE_URL = 'postgres://ammbnnbiydgmxn:865288d3aa6f5daeb0c6defb4d94036f344bd41ce0bf8dee8b035dff79b70281@ec2-54-144-165-97.compute-1.amazonaws.com:5432/d74soohkq8rpbl?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory'
 
 # SQLALCHEMY_DATABASE_URL = DATABASE_URL
-
-
-SQLALCHEMY_DATABASE_URL = uri 
+# SQLALCHEMY_DATABASE_URL = uri 
+SQLALCHEMY_DATABASE_URL = HEROKU_URL
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
