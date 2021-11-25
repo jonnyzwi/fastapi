@@ -30,14 +30,17 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 
-print(f'''
-    {SQLALCHEMY_DATABASE_URL}
-        database_hostname:           {settings.database_hostname}
-        database_port:               {settings.database_port}
-        database_password:           {settings.database_password}
-        database_name:               {settings.database_name}
-        database_username:           {settings.database_username}
-        secret_key:                  {settings.secret_key}
-        algorithm:                   {settings.algorithm}
-        access_token_expire_minutes: {settings.access_token_expire_minutes}
-    ''')
+print('KLASDLKASLKJASJLDS&*&&*#*&&$*JSHAJKHDAJSKHDKJ')
+
+
+# print(f'''
+#     {SQLALCHEMY_DATABASE_URL}
+#         database_hostname:           {settings.database_hostname}
+#         database_port:               {settings.database_port}
+#         database_password:           {settings.database_password}
+#         database_name:               {settings.database_name}
+#         database_username:           {settings.database_username}
+#         secret_key:                  {settings.secret_key}
+#         algorithm:                   {settings.algorithm}
+#         access_token_expire_minutes: {settings.access_token_expire_minutes}
+#     ''')
